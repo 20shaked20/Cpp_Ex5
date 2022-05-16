@@ -165,7 +165,8 @@ namespace ariel
          * @return iterator_reverse_order
          */
         iterator begin_reverse_order();
-        iterator end_reverse_order();
+        // iterator end_reverse_order();
+        iterator reverse_order();
 
         /**
          * @brief deep traversal, is like dfs traversal, reminds a bit the binary preoder.

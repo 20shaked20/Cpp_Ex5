@@ -124,7 +124,7 @@ ariel::OrgChart::iterator ariel::OrgChart::begin_reverse_order()
     
 }
 
-ariel::OrgChart::iterator ariel::OrgChart::end_reverse_order()
+ariel::OrgChart::iterator ariel::OrgChart::reverse_order()
 {
     Node *tmp = nullptr;
 
