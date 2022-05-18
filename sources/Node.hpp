@@ -77,7 +77,7 @@ namespace shaked
         void set_title(std::string &new_title);
 
         /**
-         * @brief search if the title exist in the curr node tree.
+         * @brief search if the title exist in the curr node tree and returns it if does.
          *
          * @param title
          * @return Node*

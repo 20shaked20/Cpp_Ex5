@@ -56,8 +56,18 @@ void shaked::Node::set_title(std::string &new_title){
 
 shaked::Node* shaked::Node::search_title_in_tree(std::string &title){
     
-    Node *temp = nullptr;
-    return temp;
+    if( get_title() == title){
+        return this;
+    }
+    Node *ans = nullptr;
+    for(Node *curr : get_children()){
+
+        ans = curr->search_title_in_tree(title);
+        if(ans != nullptr){
+            return ans;
+        }
+    }
+    return nullptr;
 }
 
 std::ostream& shaked::operator<<(std::ostream& input, shaked::Node* const &node){

@@ -20,8 +20,8 @@ namespace ariel
 
     private:
         Node *_org_chart;/*head*/
+        size_t _employee_count = 0;
 
-        // std::unordered_map<std::string, Node*> string_to_node;/*list of all strings pointing to the node*/
 
     public:
         /**
@@ -78,8 +78,9 @@ namespace ariel
         {
 
         private:
-            Node* nodes_to_iterate;
+            std::vector<Node*> nodes_to_iterate;
             int _type;
+            size_t _node_pos;
 
         public:
             /**
@@ -91,7 +92,7 @@ namespace ariel
              * 2 -> reverse order
              * 3 -> preorder.
              */
-            iterator(Node* &nodes, int type);
+            iterator(std::vector<Node*> &nodes, int type);
 
             /**
              * @brief return the string value
