@@ -88,9 +88,8 @@ namespace ariel
              *
              * @param head points to the head of the starting location
              * @param type which type to use:
-             * 1 -> level order
-             * 2 -> reverse order
-             * 3 -> preorder.
+             *  1 -> begin.
+             *  0 -> end.
              */
             iterator(std::vector<Node*> &nodes, int type);
 
@@ -128,7 +127,7 @@ namespace ariel
              * @return true
              * @return false
              */
-            bool operator==(const ariel::OrgChart::iterator &cpy) const;
+            friend bool operator==(const ariel::OrgChart::iterator &left,const ariel::OrgChart::iterator &right);
             /**
              * @brief it overloads the method '!='
              *
