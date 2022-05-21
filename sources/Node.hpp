@@ -22,7 +22,7 @@ namespace shaked
          */
     private:
         std::string _title;
-        std::vector<Node *> _children;
+        std::vector<Node *> _sub_employees;
         Node *_father;
 
     public:
@@ -60,14 +60,14 @@ namespace shaked
          *
          * @return std::vector<Node*>
          */
-        std::vector<Node *> get_children();
+        std::vector<Node *> get_sub_employees();
 
         /**
          * @brief add child to the node vector.
          *
          * @param new_child
          */
-        void add_child(Node *new_child);
+        void add_sub_employee(Node *new_sub);
 
         /**
          * @brief Set the title object

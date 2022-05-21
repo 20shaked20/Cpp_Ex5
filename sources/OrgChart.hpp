@@ -19,9 +19,8 @@ namespace ariel
     {
 
     private:
-        Node *_org_chart;/*head*/
+        Node *_org_chart; /*head*/
         size_t _employee_count = 0;
-
 
     public:
         /**
@@ -32,8 +31,8 @@ namespace ariel
 
         /**
          * @brief Copy Construct a new Org Chart object
-         * 
-         * @param other 
+         *
+         * @param other
          */
         OrgChart(OrgChart &other);
 
@@ -78,7 +77,7 @@ namespace ariel
         {
 
         private:
-            std::vector<Node*> nodes_to_iterate;
+            std::vector<Node *> nodes_to_iterate;
             int _type;
             size_t _node_pos;
 
@@ -91,7 +90,7 @@ namespace ariel
              *  1 -> begin.
              *  0 -> end.
              */
-            iterator(std::vector<Node*> &nodes, int type);
+            iterator(std::vector<Node *> &nodes, int type);
 
             /**
              * @brief return the string value
@@ -105,7 +104,7 @@ namespace ariel
              *
              * @return std::string*
              */
-            std::string* operator->() const;
+            std::string *operator->() const;
 
             /**
              * @brief ++prefix
@@ -127,7 +126,7 @@ namespace ariel
              * @return true
              * @return false
              */
-            friend bool operator==(const ariel::OrgChart::iterator &left,const ariel::OrgChart::iterator &right);
+            friend bool operator==(const ariel::OrgChart::iterator &left, const ariel::OrgChart::iterator &right);
             /**
              * @brief it overloads the method '!='
              *

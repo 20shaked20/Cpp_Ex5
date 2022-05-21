@@ -35,17 +35,17 @@ shaked::Node* shaked::Node::get_father(){
 
 }
 
-std::vector<shaked::Node*> shaked::Node::get_children(){
+std::vector<shaked::Node*> shaked::Node::get_sub_employees(){
 
-    return this->_children;
+    return this->_sub_employees;
 }
 
-void shaked::Node::add_child(shaked::Node *new_child){
+void shaked::Node::add_sub_employee(shaked::Node *new_sub){
 
-    if(new_child ->get_father()!=this){
+    if(new_sub ->get_father()!=this){
         throw "Cant add new node, its not this child node";
     }
-    _children.push_back(new_child);
+    _sub_employees.push_back(new_sub);
 
 }
 
@@ -60,9 +60,9 @@ shaked::Node* shaked::Node::search_title_in_tree(std::string &title){
         return this;
     }
     Node *ans = nullptr;
-    for(Node *curr : get_children()){
+    for(Node *emp : get_sub_employees()){
 
-        ans = curr->search_title_in_tree(title);
+        ans = emp->search_title_in_tree(title);
         if(ans != nullptr){
             return ans;
         }

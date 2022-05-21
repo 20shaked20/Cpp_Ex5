@@ -5,6 +5,10 @@
  * @version 0.1
  * @date 2022-05-18
  *
+ * credits:
+ * 1. i used the help of geeks for geeks to implement the level_order
+ *    see -> https://www.geeksforgeeks.org/level-order-tree-traversal/
+ *
  * @copyright Copyright (c) 2022
  *
  */
@@ -44,7 +48,7 @@ ariel::OrgChart &ariel::OrgChart::add_sub(std::string root, std::string sub)
 
     /*simply create the new node and add it to the after sons*/
     Node *add_sub = new Node(sub, pnode);
-    pnode->add_child(add_sub);
+    pnode->add_sub_employee(add_sub);
     this->_employee_count += 1;
     return *this;
 }
@@ -156,7 +160,7 @@ ariel::OrgChart::iterator ariel::OrgChart::begin_level_order()
         Q.pop();
         level_ordered.push_back(curr);
 
-        temp_childs = curr->get_children();
+        temp_childs = curr->get_sub_employees();
 
         for (i = 0; i < temp_childs.size(); ++i)
         {
@@ -215,7 +219,7 @@ ariel::OrgChart::iterator ariel::OrgChart::begin_reverse_order()
         Q.pop();
         reverse_ordered.push_back(curr);
 
-        temp_childs = curr->get_children();
+        temp_childs = curr->get_sub_employees();
 
         for (i = 0; i < temp_childs.size(); ++i)
         {
@@ -224,7 +228,7 @@ ariel::OrgChart::iterator ariel::OrgChart::begin_reverse_order()
         }
     }
     /*the only diffrence*/
-    std::reverse(reverse_ordered.begin(),reverse_ordered.end());
+    std::reverse(reverse_ordered.begin(), reverse_ordered.end());
 
     /*indicates the last node in the list, so i will know when to stop*/
     Node *null_node = nullptr;
@@ -237,8 +241,6 @@ ariel::OrgChart::iterator ariel::OrgChart::reverse_order()
 {
     return end_level_order();
 }
-
-
 
 // /*preorder*/
 // ariel::OrgChart::iterator ariel::OrgChart::begin_preorder()
