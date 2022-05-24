@@ -28,10 +28,8 @@ void ariel::OrgChart::free(Node *root){
 
     for(size_t i = 0; i<subs ; ++i){
         free(root->get_sub_employees().at(i));
-    }  
-    
+    }
     delete root;
-
 }
 
 ariel::OrgChart::~OrgChart() {
@@ -46,26 +44,25 @@ ariel::OrgChart::~OrgChart() {
     //     std::__throw_length_error("Tree is empty");
     // }
 
-    // for (auto it=begin_reverse_order(); it!=reverse_order(); ++it) {
+    // for (auto it=reverse_order(); it!=end_preorder(); ++it) {
 
     //     delete -it;
 
     // }  
-    // free(this->_org_chart);
-    // delete this->_org_chart;
+    free(this->_org_chart);
 
 }
 
-ariel::OrgChart &ariel::OrgChart::add_root(std::string root)
+ariel::OrgChart &ariel::OrgChart::add_root(std::string name)
 {
     if (this->_org_chart == nullptr)
     {
-        this->_org_chart = new Node(root);
+        this->_org_chart = new Node(name);
         this->_employee_count += 1;
     }
     else 
     {   
-        this->_org_chart->set_title(root);
+        this->_org_chart->set_title(name);
     }
     // else{
     //     std::__throw_logic_error("Tree Already Exists");
@@ -141,9 +138,9 @@ std::string *ariel::OrgChart::iterator::operator->() const
 {
 
     /*i did a trick to convert it to a pointer so it will fetch the ptr instead of & and keep the data*/
-    std::string *ptr = new std::string(nodes_to_iterate.at(_node_pos)->get_title());
-    // std::string *ptr2 = &ptr;
-    return ptr;
+    std::string ptr = nodes_to_iterate.at(_node_pos)->get_title();
+    std::string *ptr2 = &ptr;
+    return ptr2;
     
 }
 
@@ -200,13 +197,13 @@ ariel::OrgChart::iterator ariel::OrgChart::begin_level_order()
 
     std::vector<Node *> level_ordered;
     std::queue<Node *> Q;
-    Node *curr = nullptr;
+    Node *curr;
     size_t i = 0;
     std::vector<Node *> temp_childs;
 
     Q.push(this->_org_chart);
 
-    while (!Q.empty())
+    while (Q.empty() == false)
     {
         curr = Q.front();
 
@@ -228,7 +225,7 @@ ariel::OrgChart::iterator ariel::OrgChart::begin_level_order()
     return (ariel::OrgChart::iterator{level_ordered, 1});
 }
 
-ariel::OrgChart::iterator ariel::OrgChart::end_level_order() const
+ariel::OrgChart::iterator ariel::OrgChart::end_level_order()
 {   
     if (this->_employee_count == 0)
     {
@@ -249,7 +246,7 @@ ariel::OrgChart::iterator ariel::OrgChart::begin()
     return begin_level_order();
 }
 
-ariel::OrgChart::iterator ariel::OrgChart::end() const
+ariel::OrgChart::iterator ariel::OrgChart::end()
 {
     return end_level_order();
 }
@@ -268,13 +265,13 @@ ariel::OrgChart::iterator ariel::OrgChart::begin_reverse_order()
     }
     std::vector<Node *> reverse_ordered;
     std::queue<Node *> Q;
-    Node *curr = nullptr;
+    Node *curr;
     size_t i = 0;
     std::vector<Node *> temp_childs;
 
     Q.push(this->_org_chart);
 
-    while (!Q.empty())
+    while (Q.empty() == false)
     {
         curr = Q.front();
 
@@ -307,7 +304,7 @@ ariel::OrgChart::iterator ariel::OrgChart::begin_reverse_order()
     return (ariel::OrgChart::iterator{reverse_ordered, 1});
 }
 
-ariel::OrgChart::iterator ariel::OrgChart::reverse_order() const
+ariel::OrgChart::iterator ariel::OrgChart::reverse_order()
 {
     return end_level_order();
 }
@@ -323,13 +320,13 @@ ariel::OrgChart::iterator ariel::OrgChart::begin_preorder()
     
     std::vector<Node *> preordered;
     std::stack<Node *> S;
-    Node *curr = nullptr;
+    Node *curr;
     size_t i = 0;
     std::vector<Node *> temp_childs;
 
     S.push(this->_org_chart);
 
-    while (!S.empty())
+    while (S.empty() == false)
     {
         curr = S.top();
         S.pop();
@@ -353,7 +350,7 @@ ariel::OrgChart::iterator ariel::OrgChart::begin_preorder()
     return (ariel::OrgChart::iterator{preordered, 1});
 }
 
-ariel::OrgChart::iterator ariel::OrgChart::end_preorder() const
+ariel::OrgChart::iterator ariel::OrgChart::end_preorder()
 {
 
     return end_level_order();

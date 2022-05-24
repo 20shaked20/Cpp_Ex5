@@ -184,7 +184,7 @@ namespace ariel
          * @return iterator_level_order
          */
         iterator begin_level_order();
-        iterator end_level_order() const;
+        iterator end_level_order();
 
         /**
          * @brief points to the first father and traverses as level order:
@@ -195,7 +195,7 @@ namespace ariel
          * @return iterator_level_order
          */
         iterator begin();
-        iterator end() const;
+        iterator end();
 
         /**
          * @brief points to the last child and traverses back wards as reverse order:
@@ -205,7 +205,7 @@ namespace ariel
          */
         iterator begin_reverse_order();
         // iterator end_reverse_order();
-        iterator reverse_order() const;
+        iterator reverse_order();
 
         /**
          * @brief deep traversal, is like dfs traversal, reminds a bit the binary preoder.
@@ -213,6 +213,6 @@ namespace ariel
          * @return iterator_preorder
          */
         iterator begin_preorder();
-        iterator end_preorder() const;
+        iterator end_preorder();
     };
 }
