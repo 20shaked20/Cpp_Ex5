@@ -21,6 +21,7 @@ shaked::Node::Node(std::string &title, shaked::Node *father){
 shaked::Node::Node(std::string &title){
 
     this->_title = std::move(title);
+    this->_father = nullptr;
 
 }
 

@@ -22,6 +22,8 @@ namespace ariel
         Node *_org_chart; /*head*/
         size_t _employee_count = 0;
 
+        std::vector<Node*> _todelete;
+
     public:
         /**
          * @brief Construct a new Org Chart object
@@ -50,13 +52,6 @@ namespace ariel
          *
          */
         ~OrgChart();
-
-        /**
-         * @brief handles the ctor.
-         * 
-         * @param root 
-         */
-        void free(Node *root);
 
         /**
          * @brief
@@ -168,13 +163,6 @@ namespace ariel
              */
             bool operator!=(const ariel::OrgChart::iterator &cpy) const;
             
-            /**
-             * @brief returns a node* to remove later in the destory object for the orgchart.
-             * 
-             * @param remove 
-             * @return Node* 
-             */
-            Node* operator-();
         };
 
         /**
@@ -184,7 +172,7 @@ namespace ariel
          * @return iterator_level_order
          */
         iterator begin_level_order();
-        iterator end_level_order();
+        iterator end_level_order() const;
 
         /**
          * @brief points to the first father and traverses as level order:
@@ -195,7 +183,7 @@ namespace ariel
          * @return iterator_level_order
          */
         iterator begin();
-        iterator end();
+        iterator end() const;
 
         /**
          * @brief points to the last child and traverses back wards as reverse order:
@@ -205,7 +193,7 @@ namespace ariel
          */
         iterator begin_reverse_order();
         // iterator end_reverse_order();
-        iterator reverse_order();
+        iterator reverse_order() const;
 
         /**
          * @brief deep traversal, is like dfs traversal, reminds a bit the binary preoder.
@@ -213,6 +201,6 @@ namespace ariel
          * @return iterator_preorder
          */
         iterator begin_preorder();
-        iterator end_preorder();
+        iterator end_preorder() const;
     };
 }

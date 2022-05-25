@@ -22,6 +22,8 @@ namespace ariel
         Node *_org_chart; /*head*/
         size_t _employee_count = 0;
 
+        std::vector<Node*> _todelete;
+
     public:
         /**
          * @brief Construct a new Org Chart object
@@ -50,13 +52,6 @@ namespace ariel
          *
          */
         ~OrgChart();
-
-        /**
-         * @brief handles the ctor.
-         * 
-         * @param root 
-         */
-        void free(Node *root);
 
         /**
          * @brief
@@ -168,13 +163,6 @@ namespace ariel
              */
             bool operator!=(const ariel::OrgChart::iterator &cpy) const;
             
-            /**
-             * @brief returns a node* to remove later in the destory object for the orgchart.
-             * 
-             * @param remove 
-             * @return Node* 
-             */
-            Node* operator-();
         };
 
         /**

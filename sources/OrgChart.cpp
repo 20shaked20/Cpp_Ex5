@@ -21,19 +21,6 @@
 
 ariel::OrgChart::OrgChart() : _org_chart(nullptr), _employee_count(0) {}
 
-
-void ariel::OrgChart::free(Node *root){
-
-    size_t subs = root->get_sub_employees().size();
-
-    for(size_t i = 0; i<subs ; ++i){
-        free(root->get_sub_employees().at(i));
-    }  
-    
-    delete root;
-
-}
-
 ariel::OrgChart::~OrgChart() {
 
     /**
@@ -41,19 +28,10 @@ ariel::OrgChart::~OrgChart() {
      * 
      * @param it 
      */
-    // if (this->_employee_count == 0)
-    // {
-    //     std::__throw_length_error("Tree is empty");
-    // }
 
-    // for (auto it=begin_reverse_order(); it!=reverse_order(); ++it) {
-
-    //     delete -it;
-
-    // }  
-    // free(this->_org_chart);
-    // delete this->_org_chart;
-
+    for(size_t i = 0; i<_todelete.size(); ++i){
+        delete _todelete.at(i);
+    }
 }
 
 ariel::OrgChart &ariel::OrgChart::add_root(std::string root)
@@ -62,14 +40,16 @@ ariel::OrgChart &ariel::OrgChart::add_root(std::string root)
     {
         this->_org_chart = new Node(root);
         this->_employee_count += 1;
+
+        _todelete.push_back(this->_org_chart);
     }
     else 
     {   
         this->_org_chart->set_title(root);
+
+        _todelete.at(0) = this->_org_chart;
     }
-    // else{
-    //     std::__throw_logic_error("Tree Already Exists");
-    // }
+    
     return *this;
 }
 
@@ -93,13 +73,63 @@ ariel::OrgChart &ariel::OrgChart::add_sub(std::string root, std::string sub)
     Node *add_sub = new Node(sub, pnode);
     pnode->add_sub_employee(add_sub);
     this->_employee_count += 1;
+
+    _todelete.push_back(add_sub);
+
     return *this;
 }
 
 std::ostream &ariel::operator<<(std::ostream &output, const ariel::OrgChart &chart)
 {
     // std::vector<Node*> temp_childs = chart._org_chart->get_children();
-    output << "TMP";
+      if (chart._employee_count == 0)
+    {
+        std::__throw_length_error("Tree is empty");
+    }
+    
+    std::queue<Node *> Q;
+    Node *curr = nullptr;
+    size_t i = 0;
+    std::vector<Node *> temp_childs;
+    int nodes = 0;
+
+    Q.push(chart._org_chart);
+
+    while (!Q.empty())
+    {
+        
+        nodes = Q.size();
+       
+        while(nodes > 0){
+
+            curr = Q.front();
+            output << curr->get_title() << "       ";
+            Q.pop();
+
+            temp_childs = curr->get_sub_employees();
+
+            for (i = 0; i < temp_childs.size(); ++i)
+            {
+                Q.push(temp_childs.at(i));
+            }
+            --nodes;
+        }
+        int const five = 5;
+        output << std::endl;
+        if(temp_childs.size() != 1){
+        for(size_t k = 0; k<temp_childs.size(); ++k){
+            int word_curr_child_size = temp_childs.at(k)->get_title().length();
+            output<<"|";
+            for(int x = 1; x<word_curr_child_size+five; ++x){
+                output<<"-";
+            }
+            output<<"|";
+        }
+        }else{
+            output <<"|";
+        }
+        output <<"\n";
+    }
     return output;
 }
 
@@ -181,11 +211,6 @@ bool ariel::OrgChart::iterator::operator!=(const ariel::OrgChart::iterator &cpy)
 {
 
     return !(*this == cpy);
-}
-
-Node* ariel::OrgChart::iterator::operator-(){
-    
-    return this->nodes_to_iterate.at(_node_pos);
 }
 
 /*iterators begin - end */
