@@ -36,6 +36,12 @@ ariel::OrgChart::~OrgChart() {
 
 ariel::OrgChart &ariel::OrgChart::add_root(std::string root)
 {
+
+    if(root == " " || root == "\n" || root == "\t" || root == "\r")
+    {
+        std::__throw_invalid_argument("Cant insert special chars as root..\n");
+    }
+
     if (this->_org_chart == nullptr)
     {
         this->_org_chart = new Node(root);
@@ -55,6 +61,11 @@ ariel::OrgChart &ariel::OrgChart::add_root(std::string root)
 
 ariel::OrgChart &ariel::OrgChart::add_sub(std::string root, std::string sub)
 {
+
+    if(sub == " " || sub == "\n" || sub == "\t" || sub == "\r")
+    {
+        std::__throw_invalid_argument("Cant insert special chars as root..\n");
+    }
 
     if(this->_employee_count == 0){
 
@@ -114,12 +125,13 @@ std::ostream &ariel::operator<<(std::ostream &output, const ariel::OrgChart &cha
             }
             --nodes;
         }
+        int const five = 5;
         output << std::endl;
         if(temp_childs.size() != 1){
         for(size_t k = 0; k<temp_childs.size(); ++k){
             int word_curr_child_size = temp_childs.at(k)->get_title().length();
             output<<"|";
-            for(int x = 1; x<word_curr_child_size+5; ++x){
+            for(int x = 1; x<word_curr_child_size+five; ++x){
                 output<<"-";
             }
             output<<"|";

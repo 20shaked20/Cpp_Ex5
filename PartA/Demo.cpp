@@ -1,65 +1,97 @@
 /**
- * Demo file for the exercise on iterators
+ * @file Demo.cpp
+ * @author shaked levi
+ * @brief this is the main demonstartion for the presentation i will give
+ * @version 0.1
+ * @date 2022-05-27
  *
- * @author Tal Zichlinsky
- * @since 2022-02
+ * @copyright Copyright (c) 2022
+ *
  */
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <stdexcept>
+#include "iostream"
+#include "OrgChart.hpp"
+
+using namespace ariel;
 using namespace std;
 
-#include "OrgChart.hpp"
-using namespace ariel;
+int main()
+{
 
-int main() {
-  OrgChart organization;
-  organization.add_root("CEO")
-      .add_sub("CEO", "CTO")         // Now the CTO is subordinate to the CEO
-      .add_sub("CEO", "CFO")         // Now the CFO is subordinate to the CEO
-      .add_sub("CEO", "COO")         // Now the COO is subordinate to the CEO
-      .add_sub("CTO", "VP_SW") // Now the VP Software is subordinate to the CTO
-      .add_sub("COO", "VP_BI");      // Now the VP_BI is subordinate to the COO
+    OrgChart demo_chart;
 
-  cout << organization << endl; /* Prints the org chart in a reasonable format. For example:
-       CEO
-       |--------|--------|
-       CTO      CFO      COO
-       |                 |
-       VP_SW             VP_BI
- */
-  for (auto it = organization.begin_level_order(); it != organization.end_level_order(); ++it)
-  {
-    cout << (*it) << " " ;
-  } // prints: CEO CTO CFO COO VP_SW VP_BI
+    /*simple root creation*/
+    string root;
+    cout << "Insert the root of the chart:"
+         << "\n";
+    cin >> root;
+    demo_chart.add_root(root);
 
-  cout << '\n';
+    string choice;
+    string sub;
 
-  for (auto it = organization.begin_reverse_order(); it != organization.reverse_order(); ++it)
-  {
-    cout << (*it) << " " ;
-  } // prints: VP_SW VP_BI CTO CFO COO CEO
+    while (true)
+    {
 
-  cout << '\n';
-
-  for (auto it=organization.begin_preorder(); it!=organization.end_preorder(); ++it) {
-    cout << (*it) << " " ;
-  }  // prints: CEO CTO VP_SW CFO COO VP_BI
-
-  cout << '\n';
-
-  for (auto element : organization)
-  { // this should work like level order
-    cout << element << " " ;
-  } // prints: CEO CTO CFO COO VP_SW VP_BI
-  cout << '\n';
-
-  // demonstrate the arrow operator:
-  for (auto it = organization.begin_level_order(); it != organization.end_level_order(); ++it)
-  {
-    cout << it->size() << " " ;
-  } // prints: 3 3 3 3 5 5
-  cout << '\n';
+        cout << "A. To add subs to the tree enter: addsub"
+             << "\n";
+        cout << "B. To apply a certain order insert: \n "
+             << "1. level order \n 2. reverse order \n 3. preorder"
+             << "\n";
+        cout << "C. at anytime you wish to end program and display the chart insert Exit"
+             << "\n";
+        cin >> choice;
+        if (choice == "addsub")
+        {
+            cout << "Enter the root of the sub: "
+                 << "\n";
+            cin >> root;
+            cout << "Enter the sub of the root: "
+                 << "\n";
+            cin >> sub;
+            demo_chart.add_sub(root, sub);
+        }
+        else if (choice == "1")
+        {
+            /*level order*/
+            for (auto it = demo_chart.begin_level_order(); it != demo_chart.end_level_order(); ++it)
+            {
+                cout << (*it) << " ";
+            }
+            cout << "\n";
+        }
+        else if (choice == "2")
+        {
+            /*reverse order*/
+            for (auto it = demo_chart.begin_reverse_order(); it != demo_chart.reverse_order(); ++it)
+            {
+                cout << (*it) << " ";
+            }
+            cout << "\n";
+        }
+        else if (choice == "3")
+        {
+            /*preorder*/
+            for (auto it = demo_chart.begin_preorder(); it != demo_chart.end_preorder(); ++it)
+            {
+                cout << (*it) << " ";
+            }
+            cout << "\n";
+        }
+        else if (choice == "Exit")
+        {
+            cout << "Exit program"
+                 << "\n";
+            break;
+        }
+        else
+        {
+            cout << "Bad choice enter again..."
+                 << "\n";
+        }
+    }
+    cout << "printing chart in someway... : "
+         << "\n";
+    cout << demo_chart << "\n";
+    cout << endl;
 }
