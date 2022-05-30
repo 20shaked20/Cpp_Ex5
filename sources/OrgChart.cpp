@@ -36,6 +36,12 @@ ariel::OrgChart::~OrgChart() {
 
 ariel::OrgChart &ariel::OrgChart::add_root(std::string root)
 {
+
+    if(root == " " || root == "\n" || root == "\t" || root == "\r")
+    {
+        std::__throw_invalid_argument("Cant insert special chars as root..\n");
+    }
+
     if (this->_org_chart == nullptr)
     {
         this->_org_chart = new Node(root);
@@ -55,6 +61,11 @@ ariel::OrgChart &ariel::OrgChart::add_root(std::string root)
 
 ariel::OrgChart &ariel::OrgChart::add_sub(std::string root, std::string sub)
 {
+
+    if(sub == " " || sub == "\n" || sub == "\t" || sub == "\r")
+    {
+        std::__throw_invalid_argument("Cant insert special chars as root..\n");
+    }
 
     if(this->_employee_count == 0){
 
